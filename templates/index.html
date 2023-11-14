@@ -28,7 +28,7 @@
 {% endblock %}
 {% block content %}
 
-<form id="message-form" x-data="formHandler()" x-ref="form" hx-post="/message" hx-on::after-request="this.reset() "hx-target="#messages-list" hx-swap="afterbegin">
+<form id="message-form" x-data="formHandler()" x-ref="form" hx-post="/message" hx-on::after-request="if (event.detail.successful) this.reset()" hx-target="#messages-list" hx-swap="afterbegin">
   <textarea name="message" @input="checkValidity()"  rows="4" placeholder="Type your message here..." required minlengt=1></textarea>
   <button :disabled="!isValid">Post</button>
 </form>
