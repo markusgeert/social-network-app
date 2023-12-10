@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Scanner page{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <style>
+        #reader {
+            transform: scaleX(-1);
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div id="reader" width="600px"></div>
+    <script>
+function startCamera() {
+    const html5QrCode = new Html5Qrcode("reader");
+    html5QrCode.start(
+      { facingMode: "environment" }, 
+      {
+        fps: 10,
+        qrbox: { width: 250, height: 250 }
+      },
+      (decodedText, decodedResult) => {
+        // do something when code is read
+            console.log(`Code matched = ${decodedText}`, decodedResult);
+      },
+      (errorMessage) => {
+        // parse error, ignore it.
+      })
+    .catch((err) => {
+      // Start failed, handle it.
+    });
+}
+
+startCamera();
+    </script>
+{% endblock %}
