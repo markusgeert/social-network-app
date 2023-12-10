@@ -1,18 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% block head %}
-    <title>{% block title %}{% endblock %}</title>
-
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <script src="https://unpkg.com/htmx.org"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <style>
+    <head>
+        {% block head %}
+            <title>
+                {% block title %}{% endblock %}
+            </title>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <script src="https://unpkg.com/htmx.org"></script>
+            <script defer
+                    src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+            <style>
       :root {
-        --color-primary: #63FF97;
+        --color-primary: #3A67DC;
         --font-size-base: 11px;
         --font-family: 
           -apple-system,
@@ -68,6 +68,7 @@
         border: none;
         white-space: nowrap;
         background: var(--color-primary);
+        color: white;
         cursor: pointer;
       }
 
@@ -85,11 +86,12 @@
         border-bottom: 1px solid #ddd;
         padding: 2rem 1rem;
       }
-    </style>
-    {% endblock %}
-  </head>
-
-  <body>
-    <div id="app">{% block content %}{% endblock %}</div>
-  </body>
+            </style>
+        {% endblock %}
+    </head>
+    <body>
+        <div id="app">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
 </html>
