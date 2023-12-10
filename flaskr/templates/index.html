@@ -37,9 +37,41 @@
         width: 100%;
       }
 
+      .profile img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 1rem;
+        border-radius: 25px;
+      }
+
+      .profile .subtitle {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+          color: var(--color-font-light);
+      }
+
+      .profile h2 {
+        font-weight: 600;
+        font-size: 2.5rem;
+        margin: 0;
+        margin-bottom: 1rem;
+      }
+
       .info-item {
         display: flex;
         flex-direction: column;
+      }
+      
+      .info-item .label {
+        font-weight: 500;
+        margin-bottom: .125rem;
+        color: var(--color-font-light);
+      }
+
+      .info-item .value {
+        font-weight: 500;
+        font-size: 1.25rem;
       }
 
       .info-item .label:first-letter {
@@ -49,21 +81,11 @@
 {% endblock %}
 {% block content %}
     <div class="users">
-        {% for user in users %}
-            <div class="profile">
-                <span>This is you</span>
-                <img src="{{ user.avatar_url }}" alt="Your avatar">
-                <span>{{ user.firstname }} {{ user.lastname }}</span>
-                <ul>
-                    {% for field in fields %}
-                        <li class="info-item">
-                            <span class="label">{{ field }}</span>
-                            <span class="value">{{ user[field] }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <button>+ Add {{ user.firstname }} as a friend</button>
-            </div>
-        {% endfor %}
+        {% with user=current_user %}
+            {% include 'user.html' %}
+        {% endwith %}
+        {% with user=matched_user %}
+            {% include 'user.html' %}
+        {% endwith %}
     </div>
 {% endblock %}

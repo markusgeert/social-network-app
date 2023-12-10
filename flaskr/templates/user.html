@@ -1,0 +1,16 @@
+<div class="profile">
+    <span class="subtitle">{{ 'This is you' if user.is_current_user else 'Recommended' }}</span>
+    <img src="{{ user.avatar_url }}" alt="Your avatar">
+    <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+    <ul>
+        {% for field in fields %}
+            <li class="info-item">
+                <span class="label">{{ field }}</span>
+                <span class="value">{{ user[field] }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+    {% if not user.is_current_user %}
+        <button>+ Add {{ user.firstname }} as a friend</button>
+    {% endif %}
+</div>

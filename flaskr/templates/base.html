@@ -13,7 +13,9 @@
             <style>
       :root {
         --color-primary: #3A67DC;
-        --font-size-base: 11px;
+        --color-font: #29264C;
+        --color-font-light: #88869C;
+        --font-size-base: 16px;
         --font-family: 
           -apple-system,
           BlinkMacSystemFont,
@@ -35,11 +37,11 @@
       }
 
       body {
-        font-size: 1.5rem;
+        font-size: 1rem;
         max-width: 650px;
         margin: 40px auto;
         padding: 0 10px;
-        color: #333;
+        color: var(--color-font);
       }
 
       h1,
@@ -48,23 +50,11 @@
         line-height: 1.2;
       }
 
-      textarea {
-        resize: none;
-        width: 100%;
-        font-size: 1.8rem;
-        padding: 1rem 0;
-        border: none;
-      }
-
-      textarea:focus-visible {
-        outline: none;
-      }
-
       button {
-        font-size: 1.6rem;
-        border-radius: 3rem;
+        font-size: 1rem;
+        border-radius: 3em;
         font-weight: 500;
-        padding: .3em .8em;
+        padding: .5em 2em;
         border: none;
         white-space: nowrap;
         background: var(--color-primary);
@@ -84,7 +74,11 @@
       li {
         list-style-type: none;
         border-bottom: 1px solid #ddd;
-        padding: 2rem 1rem;
+        padding: 1.25rem 0;
+      }
+
+      li:last-child {
+        border-bottom: none;
       }
             </style>
         {% endblock %}
