@@ -108,12 +108,4 @@ def create_app():
 
         return resp
 
-    # @app.get("/login")
-    # def login():
-    #     res = redirect(url_for("home"))
-    #
-    #     res.set_cookie("user", "AAB5934A-1235-4969-A717-69026733E8A5")
-    #
-    #     return res
-
     return app
