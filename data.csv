@@ -1,0 +1,40 @@
+name,age,screentime,gender,music,pet,food,season,holiday,id
+Anne,16,4.60,V,Indie,Cats,Burgers,Spring,Beach,047328C6-F03A-4E9C-94AC-EC8178555E77
+Levi,16,6.20,M,Rock,Dogs,Burgers,Summer,Citytrip,5ABFAC4D-E853-4345-8752-361F7A8A4601
+Jasper,17,4.67,M,House,Cats,Sushi,Autumn,Beach,4BFFF3F7-61B1-4AB5-8111-A8FC1179BDA0
+Bas,19,7.36,M,Hip-Hop,Fish,Pasta,Winter,Citytrip,C3A74872-2070-48DD-B940-84B53CDDDD8A
+Anouk,19,5.47,V,House,Cats,Sushi,Spring,Nature retreat,6514C1D9-69FA-491F-9517-8AC2D71F0CB0
+Niels,21,3.72,M,Pop,Cats,Chocolate,Spring,Hiking,299D07DE-1D32-4C12-90E4-FF7EBB5B803B
+Finn,22,4.22,M,Rock,No pets,Sushi,Autumn,Citytrip,773B826C-07B8-4CB5-88C3-4B180C6AFE76
+Mark,24,2.89,M,Hip-Hop,Birds,Pizza,Winter,Beach,726EA41A-3EAB-4C61-A737-38DAEC5403E3
+Max,25,7.40,M,Pop,No pets,Pizza,Summer,Beach,2CD58A7E-544D-480B-AFEE-00A9DF4AFB65
+Daan,25,2.53,M,Rock,Cats,Sushi,Autumn,Hiking,AAB5934A-1235-4969-A717-69026733E8A5
+Isa,28,4.18,V,Classical,Dogs,Pizza,Autumn,Nature retreat,3B27A88B-7A99-4E62-A6FA-0B7CCE00D5A8
+Lucas,29,5.30,M,Pop,Birds,Pizza,Winter,Nature retreat,19019748-16C9-4979-A3C9-DFE0F3B8BDC3
+Thijs,30,5.85,M,K-Pop,Turtles,Burgers,Summer,Hiking,2E63C05E-1D91-43CA-B1DC-77B1BD131188
+Nina,31,6.30,V,Rock,Turtles,Pizza,Spring,Citytrip,89EF889A-E61C-43A9-AAB7-C6EA7E87C1A7
+Naomi,32,4.07,V,Pop,No pets,Sushi,Summer,Beach,6DD699EE-82F2-48AF-84AB-68B2635F92BC
+Laura,33,2.72,V,Hip-Hop,No pets,Pizza,Autumn,Nature retreat,2DAF7397-FE2B-4389-A03B-D9EA82AD4154
+Ruben,34,4.23,M,Rock,Dogs,Burgers,Winter,Citytrip,EAAAB377-00D7-4DFB-B44B-E3339D4E9062
+Tess,35,4.23,V,Hip-Hop,Dogs,Pasta,Summer,Hiking,56942B9E-AC72-4734-BCE5-6D19B962C2DD
+Eline,35,5.43,V,Indie,Cats,Pizza,Spring,Nature retreat,FE7D2191-FD3E-4344-BFAC-C8A72D85B12A
+Stijn,35,3.48,M,Rock,Cats,Pasta,Autumn,Citytrip,2F68AF41-7C9D-450D-BDDE-72A54C9E2E9A
+Mila,36,1.82,V,Hip-Hop,Dogs,Pizza,Spring,Hiking,BEC4DF04-A73D-41D6-851C-C57DC6CEB357
+Emma,37,3.77,V,Pop,Dogs,Sushi,Winter,Citytrip,DCC32D7B-343F-4121-A77C-30EFF55377F6
+Femke,39,4.62,V,K-Pop,Turtles,Pizza,Winter,Beach,FF0AA337-4C62-4202-9813-FE8D9EB4BE0B
+Julia,39,3.69,V,K-Pop,No pets,Burgers,Summer,Hiking,56F05683-EAC5-4349-8E8C-89B0ADFB082C
+Fleur,40,6.18,V,Hip-Hop,Dogs,Pizza,Summer,Hiking,9CEE7DE9-49E8-42AF-B032-9DB9F134D37E
+Iris,40,5.14,V,Pop,Dogs,Pasta,Summer,Beach,CE383281-9C38-4722-AC44-E41FB2457E70
+Lars,40,4.47,M,Pop,Fish,Pasta,Autumn,Hiking,AD5427C3-58DD-458F-99FB-903E0AF1F879
+Sanne,40,2.67,V,Pop,Fish,Pasta,Autumn,Nature retreat,C4C1B442-8D7E-4796-B1C4-2E4EF2A48ADC
+Lotte,41,4.98,V,Hip-Hop,Cats,Salad,Summer,Citytrip,88F99B76-3C41-444D-BD73-FBBCBC7350AD
+Sophie,45,1.03,V,Pop,Dogs,Burgers,Summer,Nature retreat,1CE8D8B2-B627-42FE-872A-9B560FF332F5
+Tom,48,3.42,M,House,Cats,Salad,Summer,Beach,EAA34A47-DA1D-4877-AE90-C9752C1DDA0B
+Sander,51,4.57,M,Hip-Hop,Dogs,Salad,Summer,Nature retreat,2D73B722-74AA-42F0-8C8E-ECD2F0B86799
+Eva,52,3.85,V,Pop,Fish,Pasta,Summer,Hiking,E2A3515F-079E-4A6E-8448-74FC42C35D9F
+Lieke,53,1.00,V,Indie,Dogs,Pizza,Summer,Citytrip,004C215D-BA35-4AD9-A4CF-66BBFB8C6F57
+Jelle,54,4.50,M,Indie,Dogs,Pizza,Summer,Nature retreat,57CCF238-6798-4B55-8949-11C3A93182E1
+Tim,55,5.80,M,Indie,Birds,Chocolate,Summer,Beach,C813296D-249D-49DD-8125-8A8AB9FB6129
+Jesse,55,6.24,M,Pop,Fish,Burgers,Spring,Hiking,87D0AB21-61BB-426E-A75D-08F8618CA120
+Bram,55,6.80,M,Rock,Birds,Chocolate,Spring,Nature retreat,05825FE6-E52F-45B4-B3CA-EF2AB6AA36D9
+Amber,60,6.65,V,K-Pop,Cats,Pasta,Spring,Nature retreat,BB5B60DD-FCDB-46D4-9911-DD4C56DC6B3E
