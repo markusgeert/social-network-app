@@ -1,7 +1,7 @@
 <div class="profile">
     <span class="subtitle">{{ 'This is you' if user.is_current_user else 'Recommended' }}</span>
-    <img src="{{ user.avatar_url }}" alt="Your avatar">
-    <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+    <img src="{{ user.avatar_url }}" alt="Avatar of {{ user.firstname }}">
+    <h2>{{ user.firstname }}</h2>
     <ul>
         {% for field in fields %}
             <li class="info-item">
