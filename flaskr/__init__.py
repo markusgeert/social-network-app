@@ -60,14 +60,30 @@ def get_user_matches(uuid):
     return links_with_user
 
 
+def get_explain_users():
+    with open("./explainer_data.csv", "r") as file:
+        csv_reader = csv.reader(file)
+        contents = list(csv_reader)
+
+    contents = contents[1:]
+
+    return [{"name": row[0], "age": row[1], "gender": row[2]} for row in contents]
+
+
 def create_app():
     app = Flask(__name__)
 
-    @app.get("/<name>")
+    @app.get("/")
+    @app.get("/matcher")
+    def login():
+        return redirect(url_for("home", name="daan"))
+
+    @app.get("/matcher/<name>")
     def home(name):
-        user = get_user_by_name(name)
         # user_uuid = request.cookies.get("user")
         # user = get_user(user_uuid)
+
+        user = get_user_by_name(name)
 
         if user is None:
             return redirect(url_for("login"))
@@ -107,5 +123,15 @@ def create_app():
         )
 
         return resp
+
+    @app.get("/my-friends")
+    def my_friends():
+        return render_template("my-friends.html")
+
+    @app.get("/explain")
+    def explain():
+        data = get_explain_users()
+
+        return render_template("explain.html", users=data)
 
     return app

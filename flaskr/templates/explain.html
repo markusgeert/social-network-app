@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Explain{% endblock %}
+{% block content %}
+    <div>
+        <h1>How do social media recommendations work?</h1>
+        <p>--</p>
+    </div>
+    <div>
+        {% for value in users %}
+            <div>
+                <span><b>{{ value['name'] }}</b></span>
+                <span>{{ value['age'] }}</span>
+                <span>{{ value['gender'] }}</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
