@@ -124,6 +124,23 @@ def create_app():
 
         return resp
 
+    @app.get("/matcher/<name>/graph")
+    def graph(name):
+        user = get_user_by_name(name)
+
+        if user is None:
+            return redirect(url_for("login"))
+
+        user_uuid = user[-1]
+
+        user_matches = get_user_matches(user_uuid)
+
+        return render_template(
+            "graph_page.html",
+            user=user_to_dict(user, is_current_user=True),
+            links=user_matches,
+        )
+
     @app.get("/my-friends")
     def my_friends():
         return render_template("my-friends.html")

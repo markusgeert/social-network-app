@@ -82,6 +82,7 @@
     </style>
 {% endblock %}
 {% block content %}
+    <a href="{{ url_for('graph', name=current_user.firstname.lower() ) }}">Show graph</a>
     <div class="users">
         {% with user=current_user %}
             {% include 'user.html' %}
