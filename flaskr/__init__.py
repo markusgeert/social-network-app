@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request, url_for, make_response
 import csv
 import json
+from pprint import pprint
 
 
 def get_user_by_name(name):
@@ -132,13 +133,28 @@ def create_app():
             return redirect(url_for("login"))
 
         user_uuid = user[-1]
-
         user_matches = get_user_matches(user_uuid)
+
+        best_matches = user_matches[:5]
+
+        nodes = {}
+        for match in best_matches:
+            node_uuids = [match["source"], match["target"]]
+
+            for node_uuid in node_uuids:
+                if node_uuid not in nodes:
+                    node = get_user(node_uuid)
+                    nodes[node_uuid] = user_to_dict(
+                        node, is_current_user=user_uuid == node_uuid
+                    )
+                    nodes[node_uuid]["id"] = node_uuid
+
+        network = {"nodes": [n for n in nodes.values()], "links": best_matches}
 
         return render_template(
             "graph_page.html",
             user=user_to_dict(user, is_current_user=True),
-            links=user_matches,
+            network=json.dumps(network),
         )
 
     @app.get("/my-friends")
