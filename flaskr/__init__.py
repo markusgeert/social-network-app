@@ -1,7 +1,6 @@
-from flask import Flask, redirect, render_template, request, url_for, make_response
+from flask import Flask, redirect, render_template, url_for, make_response
 import csv
 import json
-from pprint import pprint
 
 
 def get_user_by_name(name):
@@ -46,7 +45,7 @@ def user_to_dict(user, is_current_user=False):
     }
 
 
-def get_user_matches(uuid):
+def get_user_edges(uuid):
     with open("./graph.json", "r") as file:
         graph = json.load(file)
 
@@ -59,6 +58,20 @@ def get_user_matches(uuid):
     links_with_user.sort(key=lambda link: link["weight"], reverse=True)
 
     return links_with_user
+
+
+def nodes_from_edges(edges):
+    nodes = {}
+    for match in edges:
+        node_uuids = [match["source"], match["target"]]
+
+        for node_uuid in node_uuids:
+            if node_uuid not in nodes:
+                node = get_user(node_uuid)
+                nodes[node_uuid] = user_to_dict(node)
+                nodes[node_uuid]["id"] = node_uuid
+
+    return nodes
 
 
 def get_explain_users():
@@ -75,15 +88,35 @@ def create_app():
     app = Flask(__name__)
 
     @app.get("/")
-    @app.get("/matcher")
     def login():
         return redirect(url_for("home", name="daan"))
 
-    @app.get("/matcher/<name>")
-    def home(name):
-        # user_uuid = request.cookies.get("user")
-        # user = get_user(user_uuid)
+    @app.get("/matcher")
+    def home():
+        name = "daan"
+        user = get_user_by_name(name)
 
+        if user is None:
+            return redirect(url_for("login"))
+
+        user_uuid = user[-1]
+        current_user = user_to_dict(user, is_current_user=True)
+
+        user_edges = get_user_edges(user_uuid)
+
+        users = nodes_from_edges(user_edges)
+        del users[user_uuid]
+
+        resp = make_response(
+            render_template(
+                "home.html", current_user=current_user, users=users.values()
+            )
+        )
+
+        return resp
+
+    @app.get("/matcher/<name>")
+    def specific_match(name):
         user = get_user_by_name(name)
 
         if user is None:
@@ -93,7 +126,7 @@ def create_app():
 
         current_user = user_to_dict(user, is_current_user=True)
 
-        user_matches = get_user_matches(user_uuid)
+        user_matches = get_user_edges(user_uuid)
 
         best_match = user_matches[0]
         if best_match["source"] == user_uuid:
@@ -133,23 +166,11 @@ def create_app():
             return redirect(url_for("login"))
 
         user_uuid = user[-1]
-        user_matches = get_user_matches(user_uuid)
+        user_matches = get_user_edges(user_uuid)
+        top_matches = user_matches[:5]
 
-        best_matches = user_matches[:5]
-
-        nodes = {}
-        for match in best_matches:
-            node_uuids = [match["source"], match["target"]]
-
-            for node_uuid in node_uuids:
-                if node_uuid not in nodes:
-                    node = get_user(node_uuid)
-                    nodes[node_uuid] = user_to_dict(
-                        node, is_current_user=user_uuid == node_uuid
-                    )
-                    nodes[node_uuid]["id"] = node_uuid
-
-        network = {"nodes": [n for n in nodes.values()], "links": best_matches}
+        nodes = nodes_from_edges(top_matches)
+        network = {"nodes": [n for n in nodes.values()], "links": top_matches}
 
         return render_template(
             "graph_page.html",
