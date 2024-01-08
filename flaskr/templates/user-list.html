@@ -1,7 +1,35 @@
-<ul class="user-list">
-    {% for user in users %}
-        <li class="user-list-item">
-            <span>{{ user }}</span>
-        </li>
-    {% endfor %}
-</ul>
+<div>
+    <span class="subtitle">Everyone in the network</span>
+    <ul class="user-list">
+        {% for user in users %}
+            <li class="user-list-item">
+                <img src="{{ user.avatar_url }}" alt="Avatar of {{ user.firstname }}">
+                <span>{{ user.firstname }}</span>
+                <span>{{ user.match_score }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<style>
+.user-list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-list-item img {
+  width: 4rem;
+  height: 4rem;
+
+  border-radius: 999px;
+  text-align: center;
+  font-size: .85rem;
+  color: #777;
+  background: #eee;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

@@ -3,6 +3,18 @@ import csv
 import json
 
 
+DEFAULT_FIELDS = [
+    "age",
+    "gender",
+    "favourite music",
+    "favourite holiday",
+    "favourite pet",
+    "favourite season",
+    "favourite food",
+    "screentime",
+]
+
+
 def get_user_by_name(name):
     with open("./data.csv", "r") as file:
         csv_reader = csv.reader(file)
@@ -109,7 +121,10 @@ def create_app():
 
         resp = make_response(
             render_template(
-                "home.html", current_user=current_user, users=users.values()
+                "home.html",
+                current_user=current_user,
+                users=users.values(),
+                fields=DEFAULT_FIELDS,
             )
         )
 
@@ -136,23 +151,12 @@ def create_app():
 
         matched_user = user_to_dict(get_user(matched_user_uuid))
 
-        displayed_fields = [
-            "age",
-            "gender",
-            "favourite music",
-            "favourite holiday",
-            "favourite pet",
-            "favourite season",
-            "favourite food",
-            "screentime",
-        ]
-
         resp = make_response(
             render_template(
                 "matching_page.html",
                 current_user=current_user,
                 matched_user=matched_user,
-                fields=displayed_fields,
+                fields=DEFAULT_FIELDS,
             )
         )
 
