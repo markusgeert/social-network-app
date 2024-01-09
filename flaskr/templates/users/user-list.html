@@ -1,9 +1,9 @@
 <div>
     <span class="subtitle">Everyone in the network</span>
-    <ul class="user-list">
+    <ul class="user-list" hx-boost="true">
         {% for user in users %}
             <li>
-                <a href="/match/{{ user.firstname.lower() }}" class="user-list-item">
+                <a href="/compare/{{ user.firstname.lower() }}" class="user-list-item">
                     <img src="{{ user.avatar_url }}" alt="Avatar of {{ user.firstname }}">
                     <span>{{ user.firstname }}</span>
                     <span>{{ user.match_score }}</span>

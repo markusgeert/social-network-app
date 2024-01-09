@@ -100,11 +100,8 @@ def create_app():
     app = Flask(__name__)
 
     @app.get("/")
-    def login():
-        return redirect(url_for("home", name="daan"))
-
-    @app.get("/matcher")
     def home():
+        # TODO: get user from session
         name = "daan"
         user = get_user_by_name(name)
 
@@ -121,7 +118,7 @@ def create_app():
 
         resp = make_response(
             render_template(
-                "home.html",
+                "users/main.html",
                 current_user=current_user,
                 users=users.values(),
                 fields=DEFAULT_FIELDS,
@@ -130,8 +127,9 @@ def create_app():
 
         return resp
 
-    @app.get("/match/<name>")
+    @app.get("/compare/<name>")
     def specific_match(name):
+        # TODO: get user from session
         current_user_name = "daan"
         user = get_user_by_name(current_user_name)
 
@@ -143,7 +141,7 @@ def create_app():
 
         resp = make_response(
             render_template(
-                "matching_page.html",
+                "users/compare.html",
                 current_user=current_user,
                 matched_user=matched_user,
                 fields=DEFAULT_FIELDS,
@@ -152,8 +150,10 @@ def create_app():
 
         return resp
 
-    @app.get("/matcher/<name>/graph")
-    def graph(name):
+    @app.get("/graph")
+    def graph():
+        # TODO: get user from session
+        name = "daan"
         user = get_user_by_name(name)
 
         if user is None:
@@ -167,19 +167,9 @@ def create_app():
         network = {"nodes": [n for n in nodes.values()], "links": top_matches}
 
         return render_template(
-            "graph_page.html",
+            "graph/main.html",
             user=user_to_dict(user, is_current_user=True),
             network=json.dumps(network),
         )
-
-    @app.get("/my-friends")
-    def my_friends():
-        return render_template("my-friends.html")
-
-    @app.get("/explain")
-    def explain():
-        data = get_explain_users()
-
-        return render_template("explain.html", users=data)
 
     return app

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Homepage{% endblock %}
+{% block title %}Compare users{% endblock %}
 {% block head %}
     {{ super() }}
     <script>
-      function formHandler() {
+      /* function formHandler() {
         return {
             isValid: false,
             checkValidity() {
@@ -13,17 +13,17 @@
                 this.checkValidity();
             }
         }
-      }
+      } */
     </script>
 {% endblock %}
 {% block content %}
-    <a href="{{ url_for('graph', name=current_user.firstname.lower() ) }}">Show graph</a>
+    {# <a href="{{ url_for('graph', name=current_user.firstname.lower() ) }}">Show graph</a> #}
     <div class="two-columns">
         {% with user=current_user %}
-            {% include 'user.html' %}
+            {% include 'users/large-user.html' %}
         {% endwith %}
         {% with user=matched_user %}
-            {% include 'user.html' %}
+            {% include 'users/large-user.html' %}
         {% endwith %}
     </div>
 {% endblock %}

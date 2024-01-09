@@ -3,8 +3,8 @@
 {% block content %}
     <div class="two-columns">
         {% with user=current_user %}
-            {% include 'user.html' %}
+            {% include 'users/large-user.html' %}
         {% endwith %}
-        {% include "user-list.html" %}
+        {% include "users/user-list.html" %}
     </div>
 {% endblock %}
