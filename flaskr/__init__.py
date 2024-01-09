@@ -130,26 +130,16 @@ def create_app():
 
         return resp
 
-    @app.get("/matcher/<name>")
+    @app.get("/match/<name>")
     def specific_match(name):
-        user = get_user_by_name(name)
+        current_user_name = "daan"
+        user = get_user_by_name(current_user_name)
 
         if user is None:
             return redirect(url_for("login"))
 
-        user_uuid = user[-1]
-
         current_user = user_to_dict(user, is_current_user=True)
-
-        user_matches = get_user_edges(user_uuid)
-
-        best_match = user_matches[0]
-        if best_match["source"] == user_uuid:
-            matched_user_uuid = best_match["target"]
-        else:
-            matched_user_uuid = best_match["source"]
-
-        matched_user = user_to_dict(get_user(matched_user_uuid))
+        matched_user = user_to_dict(get_user_by_name(name))
 
         resp = make_response(
             render_template(

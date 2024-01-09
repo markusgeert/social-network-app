@@ -15,39 +15,10 @@
         }
       }
     </script>
-    <style>
-      #message-form {
-        margin-bottom: 7rem;
-      }
-      
-      #messages-title {
-        margin-bottom: .5rem;
-      }
-
-      .info-item {
-        display: flex;
-        flex-direction: column;
-      }
-      
-      .info-item .label {
-        font-weight: 500;
-        margin-bottom: .125rem;
-        color: var(--color-font-light);
-      }
-
-      .info-item .value {
-        font-weight: 500;
-        font-size: 1.25rem;
-      }
-
-      .info-item .label:first-letter {
-        text-transform: uppercase;
-      }
-    </style>
 {% endblock %}
 {% block content %}
     <a href="{{ url_for('graph', name=current_user.firstname.lower() ) }}">Show graph</a>
-    <div class="users">
+    <div class="two-columns">
         {% with user=current_user %}
             {% include 'user.html' %}
         {% endwith %}
