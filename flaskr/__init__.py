@@ -168,7 +168,7 @@ def create_app():
 
         return render_template(
             "graph/main.html",
-            user=user_to_dict(user, is_current_user=True),
+            current_user=user_to_dict(user, is_current_user=True),
             network=json.dumps(network),
         )
 

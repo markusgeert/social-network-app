@@ -1,18 +1,19 @@
 <div class="profile">
-    <span class="subtitle">{{ 'This is you' if user.is_current_user else 'Recommended' }}</span>
-    <img src="{{ user.avatar_url }}" alt="Avatar of {{ user.firstname }}">
-    <h2>{{ user.firstname }}</h2>
-    <ul>
-        {% for field in fields %}
-            <li class="info-item">
-                <span class="label">{{ field }}</span>
-                <span class="value">{{ user[field] }}</span>
-            </li>
-        {% endfor %}
-    </ul>
-    {% if not user.is_current_user %}
-        <button>+ Add {{ user.firstname }} as a friend</button>
-    {% endif %}
+  <div class="header-row">
+    <span class="subtitle"
+      >{{ 'This is you' if user.is_current_user else 'Recommended' }}</span
+    >
+  </div>
+  <img src="{{ user.avatar_url }}" alt="Avatar of {{ user.firstname }}" />
+  <h2>{{ user.firstname }}</h2>
+  <ul>
+    {% for field in fields %}
+    <li class="info-item">
+      <span class="label">{{ field }}</span>
+      <span class="value">{{ user[field] }}</span>
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 
 <style>
@@ -22,6 +23,13 @@
     width: 100%;
   }
 
+  .profile .header-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+  }
+
   .profile img {
     width: 100%;
     height: auto;
@@ -29,13 +37,6 @@
     border-radius: 25px;
     aspect-ratio: 1;
     background: #eee;
-  }
-
-  .profile .subtitle {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--color-font-light);
   }
 
   .profile h2 {
@@ -50,10 +51,10 @@
     flex-direction: column;
     padding: 1.25rem 0;
   }
-  
+
   .info-item .label {
     font-weight: 500;
-    margin-bottom: .125rem;
+    margin-bottom: 0.125rem;
     color: var(--color-font-light);
   }
 

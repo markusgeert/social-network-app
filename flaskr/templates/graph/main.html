@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Graph{% endblock %}
 {% block content %}
-    {% include "graph/graph.html" %}
+    <div class="two-columns">
+        {% with user=current_user %}
+            {% include 'users/large-user.html' %}
+        {% endwith %}
+        {% include "graph/graph.html" %}
+    </div>
 {% endblock %}

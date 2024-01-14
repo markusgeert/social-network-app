@@ -40,9 +40,15 @@
       body {
         font-size: 1rem;
         max-width: 650px;
-        margin: 40px auto;
+        margin: 1rem auto;
         padding: 0 10px;
         color: var(--color-font);
+      }
+
+      #app {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
       }
 
       h1,
@@ -94,16 +100,33 @@
       .subtitle {
           font-size: 1.5rem;
           font-weight: 600;
-          margin-bottom: 1rem;
           color: var(--color-font-light);
+      }
+
+      .link {
+        font-weight: 600;
+        color: var(--color-primary);
+        text-decoration: none;
+      }
+
+      .link:hover {
+        text-decoration: underline;
+      }
+
+      nav {
+        height: 1.25rem;
       }
             </style>
         {% endblock %}
     </head>
     <body>
         <div id="app">
-            <nav>
-                <a href="/">Everyone in the network</a>
+            <nav hx-boost="true">
+                {% if request.path != '/' %}
+                    <a class="link" href="/">< Back</a>
+                {% else %}
+                    <a class="link" href="/graph">View my social network</a>
+                {% endif %}
             </nav>
             {% block content %}{% endblock %}
         </div>
