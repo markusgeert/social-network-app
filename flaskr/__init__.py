@@ -86,6 +86,7 @@ def nodes_from_edges(edges, current_user_uuid=None):
                     node, is_current_user=node_uuid == current_user_uuid
                 )
                 nodes[node_uuid]["id"] = node_uuid
+                nodes[node_uuid]["match_score"] = match["weight"]
 
     return nodes
 
@@ -102,6 +103,8 @@ def get_explain_users():
 
 def create_app():
     app = Flask(__name__)
+
+    app.jinja_env.globals.update(round=round)
 
     @app.get("/")
     def home():
