@@ -1,6 +1,6 @@
 <div class="graph-component">
   <span class="subtitle">Your social network</span>
-  <input type="range" min="0" max="100" value="50" />
+  <input type="range" min="0" max="4" step=".1" id="my-threshold-slider" />
   <div id="my-social-graph"></div>
 </div>
 
@@ -37,8 +37,17 @@
     colors = d3.schemeTableau10, // an array of color strings, for the node groups
     width = 200, // outer width, in pixels
     height = 200, // outer height, in pixels
+    threshold,
     invalidation // when this promise resolves, stop the simulation
   } = {}) {
+    links = links.filter(link => link.weight >= threshold)
+
+    const linkIds = new Set(links.map(linkSource).concat(links.map(linkTarget)));
+
+    nodes = nodes.filter(node => linkIds.has(nodeId(node)) || node["is_current_user"]);
+
+    console.log(nodes);
+
     // Compute values.
     const N = d3.map(nodes, nodeId).map(intern);
     const LS = d3.map(links, linkSource).map(intern);
@@ -107,12 +116,12 @@
         .attr("width", nodeRadius * 2)
         .attr("height", nodeRadius * 2)
         // .attr("patternUnits", "objectBoundingBox")
-      .append("image")
+      /* .append("image")
         .attr("width", nodeRadius * 2)
         .attr("height", nodeRadius * 2)
         .attr("x", 0)
         .attr("y", 0)
-        .attr("href", ({index: i, avatar_url}) => avatar_url);
+        .attr("href", ({index: i, avatar_url}) => avatar_url); */
 
     node.attr("fill", ({index: i, id, avatar_url}) => {
       return color(G[i]);
@@ -164,7 +173,7 @@
     return Object.assign(svg.node(), {scales: {color}});
   }
 
-  function getChart(network) {
+  function getChart(network, { threshold = 0 } = {}) {
     let linkWeights = network.links.map(link => link.weight);
     let minWeight = Math.min(...linkWeights);
     let maxWeight = Math.max(...linkWeights);
@@ -179,6 +188,7 @@
       nodeGroup: d => d["is_current_user"],
       nodeTitle: d => `${d.firstname}\n${d["favourite music"]}`,
       linkStrokeWidth: l => ((l.weight - minWeight) / maxMinDiff) * (maxSize - minSize),
+      threshold,
       // nodeRadius: 25,
       // height: 600,
     })
@@ -186,8 +196,21 @@
     return chart;
   }
 
-  const network = {{ network | safe }}
+  function updateGraph() {
+    const mySocialGraph = d3.select('#my-social-graph');
+    mySocialGraph.select("svg").remove();
+    mySocialGraph.append(() => getChart(network, { threshold }));
 
-  const mySocialGraph = d3.select('#my-social-graph');
-  mySocialGraph.append(() => getChart(network));
+    d3.select("#my-threshold-slider").property("value", threshold);
+  }
+
+  const network = {{ network | safe }}
+  let threshold = 0;
+
+  updateGraph();
+
+  d3.select("#my-threshold-slider").on("input", function() {
+    threshold = +this.value;
+    updateGraph();
+  });
 </script>

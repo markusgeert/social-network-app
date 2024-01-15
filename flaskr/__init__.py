@@ -72,15 +72,19 @@ def get_user_edges(uuid):
     return links_with_user
 
 
-def nodes_from_edges(edges):
+def nodes_from_edges(edges, current_user_uuid=None):
     nodes = {}
     for match in edges:
         node_uuids = [match["source"], match["target"]]
 
         for node_uuid in node_uuids:
             if node_uuid not in nodes:
+                print(current_user_uuid, node_uuid)
+
                 node = get_user(node_uuid)
-                nodes[node_uuid] = user_to_dict(node)
+                nodes[node_uuid] = user_to_dict(
+                    node, is_current_user=node_uuid == current_user_uuid
+                )
                 nodes[node_uuid]["id"] = node_uuid
 
     return nodes
@@ -113,7 +117,7 @@ def create_app():
 
         user_edges = get_user_edges(user_uuid)
 
-        users = nodes_from_edges(user_edges)
+        users = nodes_from_edges(user_edges, user_uuid)
         del users[user_uuid]
 
         resp = make_response(
@@ -161,10 +165,9 @@ def create_app():
 
         user_uuid = user[-1]
         user_matches = get_user_edges(user_uuid)
-        top_matches = user_matches[:5]
 
-        nodes = nodes_from_edges(top_matches)
-        network = {"nodes": [n for n in nodes.values()], "links": top_matches}
+        nodes = nodes_from_edges(user_matches, user_uuid)
+        network = {"nodes": [n for n in nodes.values()], "links": user_matches}
 
         return render_template(
             "graph/main.html",
