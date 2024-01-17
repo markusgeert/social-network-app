@@ -1,6 +1,7 @@
-from flask import Flask, redirect, render_template, url_for, make_response
+from flask import Flask, redirect, render_template, url_for, make_response, request, g
 import csv
 import json
+import random
 
 
 DEFAULT_FIELDS = [
@@ -39,6 +40,14 @@ def get_user(uuid):
             user_row = row
 
     return user_row
+
+
+def get_random_user():
+    with open("./data.csv", "r") as file:
+        csv_reader = csv.reader(file)
+        contents = list(csv_reader)[1:]
+
+    return random.choice(contents)
 
 
 def user_to_dict(user, is_current_user=False):
@@ -108,16 +117,15 @@ def create_app():
 
     @app.get("/")
     def home():
-        # TODO: get user from session
-        name = "daan"
-        user = get_user_by_name(name)
+        user_uuid = request.cookies.get("user_uuid")
 
-        if user is None:
-            return redirect(url_for("login"))
+        if user_uuid is None:
+            user = get_random_user()
+            user_uuid = user[-1]
+        else:
+            user = get_user(user_uuid)
 
-        user_uuid = user[-1]
         current_user = user_to_dict(user, is_current_user=True)
-
         user_edges = get_user_edges(user_uuid)
 
         users = nodes_from_edges(user_edges, user_uuid)
@@ -132,16 +140,19 @@ def create_app():
             )
         )
 
+        resp.set_cookie("user_uuid", user_uuid)
+
         return resp
 
     @app.get("/compare/<name>")
     def specific_match(name):
-        # TODO: get user from session
-        current_user_name = "daan"
-        user = get_user_by_name(current_user_name)
+        user_uuid = request.cookies.get("user_uuid")
 
-        if user is None:
-            return redirect(url_for("login"))
+        if user_uuid is None:
+            user = get_random_user()
+            user_uuid = user[-1]
+        else:
+            user = get_user(user_uuid)
 
         current_user = user_to_dict(user, is_current_user=True)
         matched_user = user_to_dict(get_user_by_name(name))
@@ -155,27 +166,35 @@ def create_app():
             )
         )
 
+        resp.set_cookie("user_uuid", user_uuid)
+
         return resp
 
     @app.get("/graph")
     def graph():
-        # TODO: get user from session
-        name = "daan"
-        user = get_user_by_name(name)
+        user_uuid = request.cookies.get("user_uuid")
 
-        if user is None:
-            return redirect(url_for("login"))
+        if user_uuid is None:
+            user = get_random_user()
+            user_uuid = user[-1]
+        else:
+            user = get_user(user_uuid)
 
-        user_uuid = user[-1]
         user_matches = get_user_edges(user_uuid)
 
         nodes = nodes_from_edges(user_matches, user_uuid)
         network = {"nodes": [n for n in nodes.values()], "links": user_matches}
 
-        return render_template(
-            "graph/main.html",
-            current_user=user_to_dict(user, is_current_user=True),
-            network=json.dumps(network),
+        resp = make_response(
+            render_template(
+                "graph/main.html",
+                current_user=user_to_dict(user, is_current_user=True),
+                network=json.dumps(network),
+            )
         )
+
+        resp.set_cookie("user_uuid", user_uuid)
+
+        return resp
 
     return app
