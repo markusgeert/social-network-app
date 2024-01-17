@@ -144,6 +144,30 @@ def create_app():
 
         return resp
 
+    @app.post("/refresh")
+    def refresh():
+        user = get_random_user()
+        user_uuid = user[-1]
+
+        current_user = user_to_dict(user, is_current_user=True)
+        user_edges = get_user_edges(user_uuid)
+
+        users = nodes_from_edges(user_edges, user_uuid)
+        del users[user_uuid]
+
+        resp = make_response(
+            render_template(
+                "users/main.html",
+                current_user=current_user,
+                users=users.values(),
+                fields=DEFAULT_FIELDS,
+            )
+        )
+
+        resp.set_cookie("user_uuid", user_uuid)
+
+        return resp
+
     @app.get("/compare/<name>")
     def specific_match(name):
         user_uuid = request.cookies.get("user_uuid")

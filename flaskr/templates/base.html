@@ -57,6 +57,10 @@
         line-height: 1.2;
       }
 
+      a {
+        cursor: pointer;
+      }
+
       button {
         font-size: 1rem;
         border-radius: 3em;
@@ -115,17 +119,20 @@
 
       nav {
         height: 1.25rem;
+        display: flex;
+        gap: 1rem;
       }
             </style>
         {% endblock %}
     </head>
     <body>
         <div id="app">
-            <nav hx-boost="true">
-                {% if request.path != '/' %}
-                    <a class="link" href="/">< Back</a>
+            <nav>
+                {% if request.path != '/' and request.path != '/refresh' %}
+                    <a class="link" href="/" hx-target="body">< Back</a>
                 {% else %}
-                    <a class="link" href="/graph">View my social network</a>
+                    <a class="link" hx-post="/refresh" hx-target="body">↺ Change user</a>
+                    <a class="link" href="/graph">Network graph</a>
                 {% endif %}
             </nav>
             {% block content %}{% endblock %}
