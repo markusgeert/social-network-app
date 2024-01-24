@@ -1,5 +1,6 @@
 <div class="graph-component">
   <span class="subtitle">Your social network</span>
+  <span class="subsubtitle">Distance included</span>
   <input
     type="range"
     min="0"
@@ -9,17 +10,20 @@
     id="my-threshold-slider"
   />
   <datalist id="values">
-    <option value="0" label="0"></option>
-    <option value="1" label="1"></option>
-    <option value="2" label="2"></option>
-    <option value="3" label="3"></option>
-    <option value="4" label="4"></option>
+    <option value="0" label="Small"></option>
+    <option value="2" label="Medium"></option>
+    <option value="4" label="Large"></option>
   </datalist>
 
   <div id="my-social-graph"></div>
 </div>
 
 <style>
+  .graph-component {
+    display: flex;
+    flex-direction: column;
+  }
+
   .graph-component input {
     width: 100%;
     margin: 0;
@@ -110,11 +114,12 @@
         .attr("viewBox", [-width / 2, -height / 2, width, height])
         .attr("style", "max-width: 100%; height: auto; height: intrinsic;")
 
-    svg.append("text")
+    /* svg.append("text")
       .text(threshold)
       .attr("x", "-90")
       .attr("y", "-75")
       .attr("fill", "#777")
+    */
 
     const link = svg.append("g")
         .attr("stroke", typeof linkStroke !== "function" ? linkStroke : null)
@@ -218,7 +223,7 @@
       nodeGroup: d => d["is_current_user"],
       nodeTitle: d => `${d.firstname}\n${d["favourite music"]}`,
       linkStrokeWidth: l => ((l.weight - minWeight) / maxMinDiff) * (maxSize - minSize),
-      threshold,
+      threshold: 4.0 - threshold,
       // nodeRadius: 25,
       // height: 600,
     })

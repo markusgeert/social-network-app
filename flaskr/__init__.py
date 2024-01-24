@@ -214,6 +214,7 @@ def create_app():
                 "graph/main.html",
                 current_user=user_to_dict(user, is_current_user=True),
                 network=json.dumps(network),
+                fields=DEFAULT_FIELDS,
             )
         )
 
